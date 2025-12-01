@@ -21,8 +21,8 @@ datasets:
     task: SR
     name: DF2K
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/DF2K/HR
-    dataroot_lq: /data1/CKY/Dataset/DF2K/LR_bicubic/X2
+    dataroot_gt: Dataset/DF2K/HR
+    dataroot_lq: Dataset/DF2K/LR_bicubic/X2
     filename_tmpl: "{}x2"
     io_backend:
       type: disk
@@ -44,8 +44,8 @@ datasets:
     task: SR
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Set5/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Set5/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Set5/HR
+    dataroot_lq: Dataset/SR/Set5/LR_bicubic/X2
     filename_tmpl: "{}x2"
     io_backend:
       type: disk
@@ -65,11 +65,11 @@ network_Q:
 
 # paths
 pathFP:
-  pretrain_network_FP: /data1/LWH/2DQuant_LoRA/2DQuant-main/experiments/pretrained_models/SwinIR/002_lightweightSR_DIV2K_s64w8_SwinIR-S_x2.pdparams
+  pretrain_network_FP: experiments/pretrained_models/SwinIR/002_lightweightSR_DIV2K_s64w8_SwinIR-S_x2.pdparams
   strict_load_FP: False
 
 path:
-  pretrain_network_Q: /data1/LWH/paddlepaddle_train/experiments/train_SwinIR_x2_bit2/models/net_Q_3600.pdparams
+  pretrain_network_Q: experiments/train_SwinIR_x2_bit2/models/net_Q_3600.pdparams
   strict_load_Q: False
 
 # training settings
