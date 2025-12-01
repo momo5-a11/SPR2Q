@@ -1,22 +1,52 @@
-```bash
-cd SPR2Q
-conda create -n SPR2Q python=3.9
-conda activate SPR2Q
-python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
-pip install -r requirements.txt
-```
+# SPR²Q: Super-Resolution Quantization Repository
 
-## 数据集
-包括DF2K（训练）和Set5、set14、B100、Urban100、Manga109（测试），在options/train/、options/test/、options/finetune/中配置文件中修改数据集位置
+This project is developed based on the PaddlePaddle framework.
 
-## 训练运行指令（以2倍放大4bit为例）
-修改yml文件中的pretrain_network_FP为全精度模型的pdparams文件
-python basicsr/train.py -opt options/train/train_mamba_quant_x2.yml --force_yml bit=4 name=train_x2_bit4  结果保存在experiments
+## Environment Setup
 
-## 加权因子调校运行指令
-修改yml文件中的pretrain_network_FP为全精度模型的pdparams文件、pretrain_network_Q为训练好进行加权因子调校的pdparams文件
-python basicsr/train.py -opt options/finetune/finetune_mamba_quant_x2.yml --force_yml bit=1 name=finetune_x2_bit4  结果保存在experiments
+cd SPR2Q  
+conda create -n SPR2Q python=3.9  
+conda activate SPR2Q  
+python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/  
+pip install -r requirements.txt  
 
-## 测试运行指令
-修改yml文件中的pretrain_network_Q为训练好的pdparams文件
-python basicsr/test.py -opt options/test/test_mamba_quant_x2.yml --force_yml bit=4 name=test_x2_bit4  结果保存在results
+## Dataset Preparation
+
+This repository uses DF2K for training and Set5, Set14, B100, Urban100, and Manga109 for testing. Please modify the dataset paths in the YAML configuration files located in options/train/, options/test/, and options/finetune/.
+
+## Training Instructions
+
+For example, to train 2× super-resolution with 4-bit quantization, modify the pretrain_network_FP in the YAML file to point to the full-precision model (.pdparams), then run:
+
+python basicsr/train.py -opt options/train/train_mamba_quant_x2.yml --force_yml bit=4 name=train_x2_bit4
+
+The training results will be saved in the experiments folder.
+
+## Fine-Tuning for Weight Factor Adjustment
+
+Modify pretrain_network_FP to the full-precision model (.pdparams) and pretrain_network_Q to the trained quantized model (.pdparams) you want to fine-tune. Then run:
+
+python basicsr/train.py -opt options/finetune/finetune_mamba_quant_x2.yml --force_yml bit=1 name=finetune_x2_bit4
+
+The fine-tuned results will be saved in the experiments folder.
+
+## Testing Instructions
+
+Modify pretrain_network_Q in the YAML file to the trained quantized model (.pdparams). Then run:
+
+python basicsr/test.py -opt options/test/test_mamba_quant_x2.yml --force_yml bit=4 name=test_x2_bit4
+
+The test results will be saved in the results folder.
+
+## Repository Overview
+
+SPR²Q implements low-bit quantization for super-resolution networks, supporting SwinIR and Mamba architectures. It provides training, fine-tuning, and testing pipelines and supports different bit-widths and upscaling factors.
+
+## Citation
+
+If you use this repository in your work, please cite:  
+[Your Paper Info Here]
+
+## License
+
+This repository is released under the [MIT License / specify your license]. See the LICENSE file for details.
