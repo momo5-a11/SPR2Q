@@ -22,8 +22,8 @@ datasets:
   test_1:  # the 1st test dataset
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Set5/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Set5/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Set5/HR
+    dataroot_lq: Dataset/SR/Set5/LR_bicubic/X2
     filename_tmpl: '{}x2'
     io_backend:
       type: disk
@@ -31,8 +31,8 @@ datasets:
   test_2:  # the 2nd test dataset
     name: Set14
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Set14/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Set14/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Set14/HR
+    dataroot_lq: Dataset/SR/Set14/LR_bicubic/X2
     filename_tmpl: '{}x2'
     io_backend:
       type: disk
@@ -40,8 +40,8 @@ datasets:
   test_3:  # the 3rd test dataset
     name: B100
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/B100/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/B100/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/B100/HR
+    dataroot_lq: Dataset/SR/B100/LR_bicubic/X2
     filename_tmpl: '{}x2'
     io_backend:
       type: disk
@@ -49,8 +49,8 @@ datasets:
   test_4:  # the 4th test dataset
     name: Urban100
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Urban100/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Urban100/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Urban100/HR
+    dataroot_lq: Dataset/SR/Urban100/LR_bicubic/X2
     filename_tmpl: '{}x2'
     io_backend:
       type: disk
@@ -58,8 +58,8 @@ datasets:
   test_5:  # the 5th test dataset
     name: Manga109
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Manga109/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Manga109/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Manga109/HR
+    dataroot_lq: Dataset/SR/Manga109/LR_bicubic/X2
     filename_tmpl: '{}_LRBI_x2'
     io_backend:
       type: disk
@@ -92,14 +92,11 @@ network_Q:
 
 # paths
 path:
-  pretrain_network_Q: /data1/LWH/paddlepaddle_train/experiments/train_SwinIR_x2_bit2/models/net_Q_3600.pdparams
+  pretrain_network_Q: experiments/train_SwinIR_x2_bit2/models/net_Q_3600.pdparams
   strict_load_Q: true
 
-# /data1/LWH/paddlepaddle_train/experiments/train_SwinIR_x2_bit2/models/net_Q_3600.pdparams
-# /data1/LWH/paddlepaddle_train/experiments/train_SwinIR_x2_bit4/models/net_Q_2500.pdparams
-
 pathFP:
-  pretrain_network_FP: /data1/LWH/2DQuant_LoRA/2DQuant-main/experiments/pretrained_models/SwinIR/002_lightweightSR_DIV2K_s64w8_SwinIR-S_x2.pdparams
+  pretrain_network_FP: experiments/pretrained_models/SwinIR/002_lightweightSR_DIV2K_s64w8_SwinIR-S_x2.pdparams
   strict_load_FP: true
 
 # validation settings
