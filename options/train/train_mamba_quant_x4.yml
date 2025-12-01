@@ -21,8 +21,8 @@ datasets:
     task: SR
     name: DF2K
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/DF2K/HR
-    dataroot_lq: /data1/CKY/Dataset/DF2K/LR_bicubic/X4
+    dataroot_gt: Dataset/DF2K/HR
+    dataroot_lq: Dataset/DF2K/LR_bicubic/X4
     filename_tmpl: "{}x4"
     io_backend:
       type: disk
@@ -44,8 +44,8 @@ datasets:
     task: SR
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Set5/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Set5/LR_bicubic/X4
+    dataroot_gt: Dataset/SR/Set5/HR
+    dataroot_lq: Dataset/SR/Set5/LR_bicubic/X4
     filename_tmpl: "{}x4"
     io_backend:
       type: disk
@@ -65,13 +65,13 @@ network_Q:
   inner_rank: 32
   num_tokens: 64
   convffn_kernel_size: 5
-  mlp_ratio: 1.0 # 注意这个值也可能需要修改以匹配预训练模型
+  mlp_ratio: 1.0 
   upsampler: 'pixelshuffledirect'
   resi_connection: '1conv'
 
 # paths
 pathFP:
-  pretrain_network_FP: /data1/LWH/SPR2Q/experiments/pretrained_models/mambairv2_lightSR_x4.pdparams
+  pretrain_network_FP: SPR2Q/experiments/pretrained_models/mambairv2_lightSR_x4.pdparams
   strict_load_FP: False
 
 path:
@@ -79,7 +79,7 @@ path:
   strict_load_Q: ~
 
 lora_finetune:
-  is_train: True # 仍然设置为True，表示该模式下LoRA是激活的
+  is_train: True 
   rank: 8 
   alpha: 16 
   dropout: 0.0
