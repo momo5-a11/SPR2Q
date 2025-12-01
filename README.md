@@ -3,12 +3,13 @@
 This project is developed based on the PaddlePaddle framework.
 
 ## Environment Setup
+```bash
+cd SPR2Q
+conda create -n SPR2Q python=3.9
+conda activate SPR2Q
+python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+pip install -r requirements.txt
 
-cd SPR2Q  
-conda create -n SPR2Q python=3.9  
-conda activate SPR2Q  
-python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/  
-pip install -r requirements.txt  
 
 ## Dataset Preparation
 
@@ -38,15 +39,3 @@ python basicsr/test.py -opt options/test/test_mamba_quant_x2.yml --force_yml bit
 
 The test results will be saved in the results folder.
 
-## Repository Overview
-
-SPR²Q implements low-bit quantization for super-resolution networks, supporting SwinIR and Mamba architectures. It provides training, fine-tuning, and testing pipelines and supports different bit-widths and upscaling factors.
-
-## Citation
-
-If you use this repository in your work, please cite:  
-[Your Paper Info Here]
-
-## License
-
-This repository is released under the [MIT License / specify your license]. See the LICENSE file for details.
