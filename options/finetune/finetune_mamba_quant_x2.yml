@@ -21,8 +21,8 @@ datasets:
     task: SR
     name: DF2K
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/DF2K/HR
-    dataroot_lq: /data1/CKY/Dataset/DF2K/LR_bicubic/X2
+    dataroot_gt: Dataset/DF2K/HR
+    dataroot_lq: Dataset/DF2K/LR_bicubic/X2
     filename_tmpl: "{}x2"
     io_backend:
       type: disk
@@ -44,8 +44,8 @@ datasets:
     task: SR
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: /data1/CKY/Dataset/SR/Set5/HR
-    dataroot_lq: /data1/CKY/Dataset/SR/Set5/LR_bicubic/X2
+    dataroot_gt: Dataset/SR/Set5/HR
+    dataroot_lq: Dataset/SR/Set5/LR_bicubic/X2
     filename_tmpl: "{}x2"
     io_backend:
       type: disk
@@ -55,7 +55,7 @@ network_Q:
   type: MambaIRv2Light
   upscale: 2
   img_size: 64
-  embed_dim: 48  # 将 60 修改为 48
+  embed_dim: 48  
   d_state: 8
   depths: [5, 5, 5, 5]
   num_heads: [4, 4, 4, 4]
@@ -63,17 +63,17 @@ network_Q:
   inner_rank: 32
   num_tokens: 64
   convffn_kernel_size: 5
-  mlp_ratio: 1.0 # 注意这个值也可能需要修改以匹配预训练模型
+  mlp_ratio: 1.0 
   upsampler: 'pixelshuffledirect'
   resi_connection: '1conv'
 
 # paths
 pathFP:
-  pretrain_network_FP: /data1/LWH/SPR2Q/experiments/pretrained_models/mambairv2_lightSR_x4.pdparams
+  pretrain_network_FP: experiments/pretrained_models/mambairv2_lightSR_x4.pdparams
   strict_load_FP: False
 
 path:
-  pretrain_network_Q: /data1/LWH/paddlepaddle_train/experiments/train_paddle_x2_bit1/models/net_Q_11000.pdparams
+  pretrain_network_Q: experiments/train_paddle_x2_bit1/models/net_Q_11000.pdparams
   strict_load_Q: False
 
 # training settings
