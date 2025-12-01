@@ -1,0 +1,128 @@
+name: test_mamba_quant_x4
+model_type: MambaQuantModel
+scale: 4
+num_gpu: 1
+manual_seed: 0
+gpu: 0
+cali_data: keydata/cali_data_x4.pdparams
+bit: 1
+quant:
+  hook_per_layer: True
+  hook_per_block: False
+  qkv_separation: True
+  awe: True
+  
+quant_conv: True
+is_finetune: False
+better: True
+# dataset and data loader settings
+datasets:
+  test_1:
+    task: SR
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: /data1/CKY/Dataset/SR/Set5/HR
+    dataroot_lq: /data1/CKY/Dataset/SR/Set5/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+  test_2:
+    task: SR
+    name: Set14
+    type: PairedImageDataset
+    dataroot_gt: /data1/CKY/Dataset/SR/Set14/HR
+    dataroot_lq: /data1/CKY/Dataset/SR/Set14/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+  test_3:
+    task: SR
+    name: B100
+    type: PairedImageDataset
+    dataroot_gt: /data1/CKY/Dataset/SR/B100/HR
+    dataroot_lq: /data1/CKY/Dataset/SR/B100/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+  test_4:
+    task: SR
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: /data1/CKY/Dataset/SR/Urban100/HR
+    dataroot_lq: /data1/CKY/Dataset/SR/Urban100/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+  test_5:
+    task: SR
+    name: Manga109
+    type: PairedImageDataset
+    dataroot_gt: /data1/CKY/Dataset/SR/Manga109/HR
+    dataroot_lq: /data1/CKY/Dataset/SR/Manga109/LR_bicubic/X4
+    filename_tmpl: '{}_LRBI_x4'
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: MambaIRv2Light
+  upscale: 4
+  in_chans: 3
+  img_size: 64
+  img_range: 1.
+  embed_dim: 48
+  d_state: 8
+  depths: [ 5, 5, 5, 5 ]
+  num_heads: [ 4, 4, 4, 4 ]
+  window_size: 16
+  inner_rank: 32
+  num_tokens: 64
+  convffn_kernel_size: 5
+  mlp_ratio: 1.0
+  upsampler: 'pixelshuffledirect'
+  resi_connection: '1conv'
+
+network_Q:
+  type: MambaIRv2Light
+  upscale: 4
+  in_chans: 3
+  img_size: 64
+  img_range: 1.
+  embed_dim: 48
+  d_state: 8
+  depths: [ 5, 5, 5, 5 ]
+  num_heads: [ 4, 4, 4, 4 ]
+  window_size: 16
+  inner_rank: 32
+  num_tokens: 64
+  convffn_kernel_size: 5
+  mlp_ratio: 1.0
+  upsampler: 'pixelshuffledirect'
+  resi_connection: '1conv'
+
+
+# paths
+path:
+  pretrain_network_Q: /data1/LWH/paddlepaddle_train/experiments/train_paddle_x4_bit1/models/net_Q_11200.pdparams
+  strict_load_Q: False
+
+pathFP:
+  pretrain_network_FP: /data1/LWH/MambaIR-main/experiments/pretrained_models/mambairv2_lightSR_x4.pdparams
+  strict_load_FP: False
+
+# validation settings
+val:
+  save_img: true
+  suffix: ~  # add suffix to saved images, if None, use exp name
+  selfensemble_testing: false
+  patchwise_testing: false
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 4
+      test_y_channel: true
+    ssim:
+      type: calculate_ssim
+      crop_border: 4
+      test_y_channel: true
